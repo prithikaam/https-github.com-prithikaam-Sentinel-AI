@@ -31,6 +31,14 @@ def index():
         "version": "1.0.0"
     })
 
+@app.route('/health')
+def health():
+    """Health check endpoint for Railway and other deployment platforms"""
+    return jsonify({
+        "status": "healthy",
+        "service": "sentinelai-backend"
+    }), 200
+
 @app.errorhandler(404)
 def not_found_error(error):
     return jsonify({
