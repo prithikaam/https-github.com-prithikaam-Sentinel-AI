@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Users, ShieldAlert, CheckCircle, RefreshCw, Bot, Bell } from 'lucide-react';
+import API_URL from '../config';
 import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -29,12 +30,12 @@ export default function Dashboard({ onAskAssistant }) {
   const fetchDashboardData = async () => {
     try {
       // Fetch stats
-      const statsRes = await fetch('http://127.0.0.1:5000/api/dashboard/stats');
+      const statsRes = await fetch(`${API_URL}/api/dashboard/stats`);
       const statsData = await statsRes.json();
       setStats(statsData);
 
       // Fetch alerts
-      const alertsRes = await fetch('http://127.0.0.1:5000/api/dashboard/alerts');
+      const alertsRes = await fetch(`${API_URL}/api/dashboard/alerts`);
       const alertsData = await alertsRes.json();
       setAlerts(alertsData);
       
@@ -53,7 +54,7 @@ export default function Dashboard({ onAskAssistant }) {
 
   const handleOverride = async (username) => {
     try {
-      const res = await fetch('http://127.0.0.1:5000/api/users/override', {
+      const res = await fetch(`${API_URL}/api/users/override`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username })

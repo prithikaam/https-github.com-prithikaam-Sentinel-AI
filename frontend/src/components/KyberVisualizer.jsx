@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Cpu, RefreshCw, Key, Shield, HelpCircle, ArrowRight } from 'lucide-react';
+import API_URL from '../config';
 
 export default function KyberVisualizer() {
   const [step, setStep] = useState(0); // 0: Intro, 1: KeyGen, 2: Encaps, 3: Decaps
@@ -22,7 +23,7 @@ export default function KyberVisualizer() {
       // let's fetch an on-demand key generation trace from our Kyber implementation.
       // We'll simulate the endpoint query or call a generic keygen route.
       // Since app.py has /api/auth/login-init which returns a keygen trace, let's call it!
-      const res = await fetch('http://127.0.0.1:5000/api/auth/login-init', {
+      const res = await fetch(`${API_URL}/api/auth/login-init`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: 'john' }) // john is a seeded user
@@ -54,7 +55,7 @@ export default function KyberVisualizer() {
     try {
       // Simulate/Trigger KEM Encapsulation using the public key
       // We can query a local simulation from the backend
-      const res = await fetch('http://127.0.0.1:5000/api/auth/login-complete', {
+      const res = await fetch(`${API_URL}/api/auth/login-complete`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

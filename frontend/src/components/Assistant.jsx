@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Bot, Send, ShieldAlert, Sparkles, HelpCircle } from 'lucide-react';
+import API_URL from '../config';
 
 // A simple, safe, and lightweight Markdown-to-HTML parser for React
 function renderMarkdown(text) {
@@ -119,7 +120,7 @@ export default function Assistant({ initialQuery }) {
     setLoading(true);
 
     try {
-      const res = await fetch('http://127.0.0.1:5000/api/assistant/chat', {
+      const res = await fetch(`${API_URL}/api/assistant/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: queryText })
@@ -133,7 +134,7 @@ export default function Assistant({ initialQuery }) {
         ...prev, 
         { 
           sender: 'assistant', 
-          text: "⚠️ **System Communication Error**: Failed to reach SentinelAI assistant server. Please ensure the backend Flask server is running on `127.0.0.1:5000`." 
+          text: "⚠️ **System Communication Error**: Failed to reach SentinelAI assistant server. Please ensure the backend Flask server is running and the API URL is configured correctly." 
         }
       ]);
     } finally {

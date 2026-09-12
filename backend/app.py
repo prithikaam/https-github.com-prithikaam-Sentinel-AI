@@ -474,5 +474,6 @@ if __name__ == '__main__':
     # Initialize DB seeding
     seed_database()
     
-    # Run the server on port 5000, disabling the auto-reloader to prevent restarts on SQLite database writes
-    app.run(host='127.0.0.1', port=5000, debug=True, use_reloader=False)
+    # Run the server on port 5000, binding to 0.0.0.0 to accept external connections
+    # Disable auto-reloader to prevent restarts on SQLite database writes
+    app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=False)

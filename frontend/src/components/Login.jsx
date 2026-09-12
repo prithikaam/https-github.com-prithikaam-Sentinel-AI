@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Shield, Key, Cpu, HelpCircle, User, ArrowRight, RefreshCw } from 'lucide-react';
+import API_URL from '../config';
 
 export default function Login({ onLoginSuccess }) {
   const [username, setUsername] = useState('john');
@@ -46,7 +47,7 @@ export default function Login({ onLoginSuccess }) {
 
     try {
       // 1. Initial Handshake Request (Get Kyber Public Key)
-      const initRes = await fetch('http://127.0.0.1:5000/api/auth/login-init', {
+      const initRes = await fetch(`${API_URL}/api/auth/login-init`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username })
@@ -78,7 +79,7 @@ export default function Login({ onLoginSuccess }) {
       // 3. Complete Login (Transmit Credentials + Kyber Ciphertext + Activity Metrics)
       await new Promise(resolve => setTimeout(resolve, 800)); // Animation pause
 
-      const loginRes = await fetch('http://127.0.0.1:5000/api/auth/login-complete', {
+      const loginRes = await fetch(`${API_URL}/api/auth/login-complete`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -125,7 +126,7 @@ export default function Login({ onLoginSuccess }) {
     if (!otp) return;
 
     try {
-      const res = await fetch('http://127.0.0.1:5000/api/auth/verify-otp', {
+      const res = await fetch(`${API_URL}/api/auth/verify-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, otp })
