@@ -474,6 +474,9 @@ if __name__ == '__main__':
     # Initialize DB seeding
     seed_database()
     
-    # Run the server on port 5000, binding to 0.0.0.0 to accept external connections
+    # Get port from environment variable (Railway sets this) or default to 5000
+    port = int(os.environ.get('PORT', 5000))
+    
+    # Run the server on the appropriate port, binding to 0.0.0.0 to accept external connections
     # Disable auto-reloader to prevent restarts on SQLite database writes
-    app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=False)
+    app.run(host='0.0.0.0', port=port, debug=True, use_reloader=False)
