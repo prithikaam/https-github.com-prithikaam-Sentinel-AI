@@ -23,14 +23,6 @@ handshake_store = {}
 # Structure: { username: { "otp": "123456", "expires": datetime } }
 otp_store = {}
 
-@app.route('/')
-def index():
-    return jsonify({
-        "status": "ONLINE",
-        "message": "SentinelAI Security API Endpoint is operational.",
-        "version": "1.0.0"
-    })
-
 @app.route('/health')
 def health():
     """Health check endpoint for Railway and other deployment platforms"""
