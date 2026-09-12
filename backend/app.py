@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import bcrypt
 import jwt
@@ -10,7 +10,7 @@ import kyber_crypto
 from anomaly_detector import detector
 from assistant import assistant
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='frontend/dist')
 CORS(app)  # Enable Cross-Origin Resource Sharing for React frontend
 
 JWT_SECRET = "SENTINEL_AI_SUPER_SECRET_JWT_KEY"
@@ -38,6 +38,16 @@ def health():
         "status": "healthy",
         "service": "sentinelai-backend"
     }), 200
+
+@app.route('/')
+def serve_frontend():
+    """Serve the React frontend"""
+    return send_from_directory('frontend/dist', 'index.html')
+
+@app.route('/<path:path>')
+def serve_static_files(path):
+    """Serve static files for the React frontend"""
+    return send_from_directory('frontend/dist', path)
 
 @app.errorhandler(404)
 def not_found_error(error):
